@@ -1,0 +1,153 @@
+jQuery(document).ready(function( $ ){
+    setInit();
+});
+
+function setInit() {
+  	
+  	let cityId = document.getElementById("billing_city"); 
+    let cityname = cityId.options[cityId.selectedIndex].value;
+  
+    let brgyId = document.getElementById('billing_postcode');
+    let numberBarangays = brgyId.options.length;
+
+    let brgyname = brgyId.options[brgyId.selectedIndex].value;
+  
+    for (let i = numberBarangays - 1; i >= 0; i--) {
+        brgyId.options.remove(i);
+    }
+  
+    var Cebu_City = {
+                  text: ['Apas', 'Bacayan', 'Banawa', 'Banilad', 'Basak Pardo', 'Basak San Nicolas', 
+    					'Bulacao', 'Busay', 'Calamba', 'Capitol Site', 'Carreta', 
+                        'Cebu Business Park', 'Cogon Pardo', 'Cogon-Ramos', 'Day-as', 'Duljo Fatima', 
+                        'Ermita', 'Guadalupe', 'Hipodromo', 'Inayawan', 'Kalubihan', 
+                        'Kamagayan', 'Kamputhaw','Kasambagan', 'Kinasang-an Pardo', 'Labangon', 
+                        'Lahug', 'Lorega-San Miguel', 'Luz', 'Mabolo', 'Mambaling',
+                        'North Reclamation Area', 'Pahina Central', 'Pahina San Nicolas', 'Pardo', 'Parian',
+                        'Pasil', 'Pit-os', 'Punta Princesa', 'Quiot Pardo', 'Sambag I', 
+                        'Sambag II', 'San Antonio', 'San Nicolas Proper', 'San Roque', 'Santa Cruz', 
+                        'Santo Niño', 'Sawang Calero', 'South Road Properties', 'Suba San Nicolas', 'T. Padilla', 
+                        'Talamban', 'Tejero', 'Tinago', 'Tisa', 'Zapatera'],
+                  value: ['CBB2APAS', 'CBB1BCYN', 'CBC5BNWA', 'CBA1BNLD', 'CBD8BKPD', 'CBD8BKSN',
+                          'CBD8BLCO', 'CBC2BSAY', 'CBC5CLMB', 'CBB2CPTL', 'CBA3CRRT',
+    					  'CBB2CBP', 'CBD8CGPD', 'CBB2CGRM', 'CBC4DYAS', 'CBC7DLJO',
+    					  'CBB6ERMT', 'CBC5GDLP', 'CBB2HPDM', 'CBD8INYW', 'CBB6KLBH',
+    					  'CBB6KMYG', 'CBB2KPTW', 'CBA3KSBG', 'CBD8KNPD', 'CBC7LBNG', 
+    					  'CBB2LHUG', 'CBB4LRGA', 'CBB2LUZ', 'CBA3MBLO', 'CBD7MMBL', 
+    					  'CBA3NRA', 'CBB6PHCT', 'CBC6PHSN', 'CBD8PRDO', 'CBB6PRAN', 
+                          'CBD7PASL', 'CBC1PITS', 'CBD7PTPC', 'CBD8QTPD', 'CBB6SMB1', 
+    					  'CBB6SMB2', 'CBB4SANT', 'CBC6SNPP', 'CBB4SROQ', 'CBB2STCZ', 
+    					  'CBB6STNN', 'CBD7SWCL', 'CBC4SRP', 'CBD7SUBA', 'CBB4TPDL', 
+    					  'CBA1TLBN', 'CBB4TJRO', 'CBB4TNGO', 'CBD7TISA', 'CBB4ZPTR'],
+      			  length: 56
+    }
+
+    var Consolacion = {
+      			text: ['Pitogo', 'Poblacion Occidental', 'Poblacion Oriental'],
+      			value: ['CLD1PTGO', 'CLD1PLOC', 'CLD1PLOR'],
+        		length: 3
+    }
+
+    var Cordova = {
+      			text: ['Alegria', 'Bangbang', 'Buagsong', 'Catarman', 'Cogon',
+                       'Dapitan', 'Day-as', 'Gabi', 'Ibabao', 'Pilipog',
+                       'Poblacion', 'San Miguel'],
+      			value: ['CDD1ALGR', 'CDD1BANG', 'CDD1BGSN', 'CDD1CTMN', 'CDD1CGON',
+                        'CDD1DPTN', 'CDD1DYAS', 'CDD1GABI', 'CDD1IBAO', 'CDD1PLPG',
+                        'CDD1PLCN', 'CDD1SMGL'],
+      			length: 12
+    }
+
+    var LapuLapu_City = {
+    			text: ['Agus', 'Airport (Mactan-Cebu)', 'Babag', 'Bankal', 'Basak', 
+                       'Buaya', 'Calawisan', 'Canjulao', 'Cebu Light Industrial Park', 'Gun-ob', 
+    				   'Ibo', 'Looc', 'Mactan (barangay)', 'Mactan Export Zone 1', 'Mactan Export Zone 2', 
+                       'Maribago', 'Marigondon', 'Pajac', 'Pajo', 'Poblacion', 
+                       'Punta Engaño', 'Pusok', 'Suba-Basbas'],
+      			value: ['LPD3AGUS', 'LPC2ARPT', 'LPC2BBAG', 'LPC1BNKL', 'LPC2BSAK', 
+    					'LPC1BUYA', 'LPC2CLWS', 'LPC2CJLO', 'LPC2CLIP', 'LPC2GNOB', 
+    					'LPC1IBO', 'LPC2LOOC', 'LPD3MCTN', 'LPC1MEZ1', 'LPC1MEZ2', 
+    					'LPD3MRBG', 'LPD3MRGD', 'LPD3PJAC', 'LPC1PAJO', 'LPC2PLCN', 
+    					'LPD3PTEG', 'LPC2PUSK', 'LPD3SUBA'],
+      			length: 23
+    }
+
+    var Liloan = {
+      			text: ['Yati'],
+      			value: ['LLD1YATI'],
+      			length: 1
+    }
+
+    var Mandaue_City = {
+    			text: ['Alang-alang', 'Bakilid', 'Banilad', 'Basak', 'Cabancalan', 
+    				   'Cambaro', 'Canduman', 'Casili', 'Casuntingan', 'Centro', 
+    				   'Cubacub', 'Guizo', 'Ibabao-Estancia', 'Jagobiao', 'Labogon', 
+    				   'Looc', 'Maguikay', 'Mantuyong', 'Opao', 'Ouano Reclamation Area', 
+    				   'Paknaan', 'Pagsabungan', 'Subangdaku', 'Tabok', 'Tawason', 
+                       'Tingub', 'Tipolo', 'Umapad'],
+      			value: ['MDA3ALNG', 'MDA1BKLD', 'MDA1BNLD', 'MDB5BSAK', 'MDA2CBCL', 
+    					'MDB4CMBR', 'MDB5CNDM', 'MDC6CASL', 'MDA2CSTN', 'MDA3CNTR', 
+    					'MDC6CBCB', 'MDA1GIZO', 'MDA3IBAO', 'MDC6JGBO', 'MDB5LBGN', 
+    					'MDB4LOOC', 'MDA2MGKY', 'MDA1MTYG', 'MDB4OPAO', 'MDA1ORA', 
+    					'MDB5PKNN', 'MDB5PSBN', 'MDA1SBDK', 'MDB5TBOK', 'MDC6TWSN', 
+    					'MDB5TNGB', 'MDA1TPLO', 'MDB4UMPD'],
+      			length: 28
+      			
+    }
+
+    var Minglanilla = {
+    	text: ['Pakigne', 'Tungkil'],
+      	value: ['MLD1PKGN', 'MLD1TNKL'],
+        length: 2
+    }
+
+    var Talisay_City = {
+    	text: ['Biasong', 'Bulacao', 'Cansojong', 'Dumlog', 'Lagtang', 
+    		'Lawaan I', 'Lawaan II', 'Lawaan III', 'Linao', 'Mohon', 
+    		'Poblacion', 'Pooc', 'San Isidro', 'San Roque', 'Tabunok', 'Tangke'],
+    	value: ['TLD2BSNG','TLD3BLCO', 'TLD1CSJN', 'TLD1DMLG', 'TLD3LGTN',
+    		'TLD2LWN1', 'TLD2LWN2', 'TLD2LWN3', 'TLD2LNAO', 'TLD2MHON',
+    		'TLD1PLCN', 'TLD2POOC', 'TLD1SISD', 'TLD1SROQ', 'TLD3TBNK', 'TLD1TNGK'],
+       length: 16
+
+    }
+
+    let city;
+  
+    switch (cityname) {
+            case "Consolacion":
+              city = Consolacion;
+              break;
+            case "Cordova":
+        	  city = Cordova;
+              break;
+            case "Lapu-Lapu City":
+              city = LapuLapu_City;
+              break;
+            case "Liloan":
+              city = Liloan;
+              break;
+            case "Mandaue City":
+              city = Mandaue_City;
+              break;
+      		case "Minglanilla":
+        	  city = Minglanilla;
+              break;
+            case "Talisay City":
+              city = Talisay_City;
+              break;
+            default:
+              city = Cebu_City;
+        	  break;
+     }
+	
+     //window.Option = function(text,  value,  defaultSelected,  selected) {};
+     brgyId.add(new Option("Please select barangay...", "", brgyname == "", brgyname == ""));
+	
+     for (let i = 0; i < city.length; i++) {
+          brgyId.add(new Option(city.text[i], city.value[i], city.value[i] == brgyname, city.value[i] == brgyname));
+     }
+  	 
+}
+
+
