@@ -1,10 +1,11 @@
 add_filter( 'woocommerce_checkout_fields', 'city_dropdown');
 add_filter( 'woocommerce_checkout_fields', 'brgy_dropdown');
+add_filter( 'woocommerce_default_address_fields' , 'custom_override_checkout_fields' );
 
 function city_dropdown( $fields ) {
-
 	$city_args = wp_parse_args( array(
 		'type' => 'select',
+		'input_class' => array('wc-enhanced-select'),
 		'options' => array(
 			'Cebu City' => 'Cebu City', 
 			'Consolacion' => 'Consolacion',
@@ -20,6 +21,12 @@ function city_dropdown( $fields ) {
 	
 	$fields['billing']['billing_city'] = $city_args;
 	//$fields['shipping']['shipping_city'] = $city_args;
+	
+	wc_enqueue_js( "
+	jQuery( ':input.wc-enhanced-select' ).filter( ':not(.enhanced)' ).each( function() {
+		var select2_args = { minimumResultsForSearch: 5 };
+		jQuery( this ).select2( select2_args ).addClass( 'enhanced' );
+	});" );
 
 	return $fields;
 }
@@ -27,9 +34,8 @@ function city_dropdown( $fields ) {
 function brgy_dropdown($fields){
 	$brgy_args = wp_parse_args( array(
 		'type' => 'select',
-		'label' => 'Barangay / Area',
-		'options' => array(
-		    '' => 'Please select barangay/area',
+		'input_class' => array('wc-enhanced-select'),
+		'options' => array('' => 'Please select barangay/area',
 			'CBB2APAS' => 'Apas', 
 			'CBB1BCYN' => 'Bacayan', 
 			'CBA1BNLD' => 'Banilad', 
@@ -172,5 +178,18 @@ function brgy_dropdown($fields){
 			'TLD1TNGK' => 'Tangke')
 	), $fields['billing']['billing_postcode'] );
     $fields['billing']['billing_postcode'] = $brgy_args;	
+	wc_enqueue_js( "
+	jQuery( ':input.wc-enhanced-select' ).filter( ':not(.enhanced)' ).each( function() {
+		var select2_args = { minimumResultsForSearch: 5 };
+		jQuery( this ).select2( select2_args ).addClass( 'enhanced' );
+	});" );
 	return $fields;
 }
+
+
+function custom_override_checkout_fields( $fields ) {
+     $fields['city']['label'] = 'City';
+	 $fields['postcode']['label'] = 'Barangay/Area';
+     return $fields;
+}
+
