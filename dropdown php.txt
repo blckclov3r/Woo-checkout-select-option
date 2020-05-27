@@ -1,10 +1,13 @@
 add_filter( 'woocommerce_checkout_fields', 'city_dropdown');
 add_filter( 'woocommerce_checkout_fields', 'brgy_dropdown');
-add_filter( 'woocommerce_default_address_fields' , 'custom_override_checkout_fields' );
+add_filter( 'woocommerce_default_address_fields' , 'custom_checkout_label' );
 
+//dropdown field > billing_city
 function city_dropdown( $fields ) {
 	$city_args = wp_parse_args( array(
 		'type' => 'select',
+		'class' => array( ''), 
+		'clear' => false, 
 		'input_class' => array('wc-enhanced-select'),
 		'options' => array(
 			'Cebu City' => 'Cebu City', 
@@ -24,16 +27,18 @@ function city_dropdown( $fields ) {
 	
 	wc_enqueue_js( "
 	jQuery( ':input.wc-enhanced-select' ).filter( ':not(.enhanced)' ).each( function() {
-		var select2_args = { minimumResultsForSearch: 5 };
-		jQuery( this ).select2( select2_args ).addClass( 'enhanced' );
+		let args = { minimumResultsForSearch: 4 };
+		jQuery( this ).select2( args ).addClass( 'enhanced' );
 	});" );
 
 	return $fields;
 }
 
+//dropdown field > billing_postcode
 function brgy_dropdown($fields){
 	$brgy_args = wp_parse_args( array(
 		'type' => 'select',
+		'clear' => false, 
 		'input_class' => array('wc-enhanced-select'),
 		'options' => array('' => 'Please select barangay/area',
 			'CBB2APAS' => 'Apas', 
@@ -180,16 +185,25 @@ function brgy_dropdown($fields){
     $fields['billing']['billing_postcode'] = $brgy_args;	
 	wc_enqueue_js( "
 	jQuery( ':input.wc-enhanced-select' ).filter( ':not(.enhanced)' ).each( function() {
-		var select2_args = { minimumResultsForSearch: 5 };
-		jQuery( this ).select2( select2_args ).addClass( 'enhanced' );
+		let args = { minimumResultsForSearch: 4 };
+		jQuery( this ).select2( args ).addClass( 'enhanced' );
 	});" );
 	return $fields;
 }
 
-
-function custom_override_checkout_fields( $fields ) {
+// change label
+function custom_checkout_label( $fields ) {
      $fields['city']['label'] = 'City';
 	 $fields['postcode']['label'] = 'Barangay/Area';
      return $fields;
 }
+
+// remove field
+add_filter( 'woocommerce_default_address_fields' , 'unset_field' );
+function unset_field($fields){
+	 unset($fields['state']);
+	// unset($fields['country']);
+     return $fields;
+}
+
 
