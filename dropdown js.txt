@@ -25,6 +25,9 @@ jQuery(document).ready(function( $ ){
         brgyId.options.remove(numberBarangays);
         numberBarangays--;
       }
+     
+     //window.Option = function(text,  value,  defaultSelected,  selected) {};
+      brgyId.add(new Option("Please select barangay...", "", brgyname, brgyname));
 
       let Cebu_City = {
                     text: ['Apas', 'Bacayan', 'Banawa', 'Banilad', 'Basak Pardo', 'Basak San Nicolas', 
@@ -149,12 +152,10 @@ jQuery(document).ready(function( $ ){
               default:
                 city = Cebu_City;
        }
-
-       //window.Option = function(text,  value,  defaultSelected,  selected) {};
-       brgyId.add(new Option("Please select barangay...", "", brgyname, brgyname));
-
+		
        for (let i = 0; i < city.length; i++) {
-            brgyId.add(new Option(city.text[i], city.value[i], city.value[i] == brgyname, city.value[i] == brgyname));
+            //window.Option = function(text,  value,  defaultSelected,  selected) {};
+            brgyId.add(new Option(city.text[i], city.value[i], brgyname, city.value[i] == brgyname));
        }
        
   }
