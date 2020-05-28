@@ -6,8 +6,8 @@ add_filter( 'woocommerce_default_address_fields' , 'custom_checkout_label' );
 function city_dropdown( $fields ) {
 	$city_args = wp_parse_args( array(
 		'type' => 'select',
-		'class' => array( ''), 
-		'clear' => false, 
+		'class' => array( 'city-selector','form-row-first'), 
+		'clear' => true, 
 		'input_class' => array('wc-enhanced-select'),
 		'options' => array(
 			'Cebu City' => 'Cebu City', 
@@ -18,8 +18,8 @@ function city_dropdown( $fields ) {
 			'Mandaue City' => 'Mandaue City',
 			'Minglanilla' => 'Minglanilla',
 			'Talisay City' => 'Talisay City'
-		),
-		'custom_attributes' => array('onchange' => 'setInit()')
+		)//,
+		//'custom_attributes' => array('onchange' => 'setInit()')
 	), $fields['billing']['billing_city'] );
 	
 	$fields['billing']['billing_city'] = $city_args;
@@ -38,7 +38,8 @@ function city_dropdown( $fields ) {
 function brgy_dropdown($fields){
 	$brgy_args = wp_parse_args( array(
 		'type' => 'select',
-		'clear' => false, 
+		'class' => array('form-row-last','brgy-selector'),
+		'clear' => true, 
 		'input_class' => array('wc-enhanced-select'),
 		'options' => array('' => 'Please select barangay/area',
 			'CBB2APAS' => 'Apas', 
@@ -203,6 +204,7 @@ add_filter( 'woocommerce_default_address_fields' , 'unset_field' );
 function unset_field($fields){
 	 unset($fields['state']);
 	// unset($fields['country']);
+	 unset($fields['company']);
      return $fields;
 }
 
