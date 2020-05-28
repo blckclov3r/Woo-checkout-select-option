@@ -155,7 +155,6 @@ jQuery(document).ready(function( $ ){
 
        for (let i = 0; i < city.length; i++) {
             brgyId.add(new Option(city.text[i], city.value[i], city.value[i] == brgyname, city.value[i] == brgyname));
-            console.log(i);
        }
        
   }
