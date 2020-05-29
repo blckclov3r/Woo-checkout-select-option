@@ -5,9 +5,10 @@ jQuery(document).ready(function( $ ){
    $('.city-selector').change(function(){
       setInit();
    });
+  
    $('.brgy-selector').change(function(){
       jQuery('body').trigger('update_checkout');
-   })
+   });
   
    function setInit() {
 
@@ -26,9 +27,6 @@ jQuery(document).ready(function( $ ){
         numberBarangays--;
       }
      
-     //window.Option = function(text,  value,  defaultSelected,  selected) {};
-      brgyId.add(new Option("Please select barangay...", "", brgyname, brgyname));
-
       let Cebu_City = {
                     text: ['Apas', 'Bacayan', 'Banawa', 'Banilad', 'Basak Pardo', 'Basak San Nicolas', 
                           'Bulacao', 'Busay', 'Calamba', 'Capitol Site', 'Carreta', 
@@ -126,8 +124,10 @@ jQuery(document).ready(function( $ ){
       }
 
       let city;
-
       switch (cityname) {
+        	  case "Cebu City":
+          		city= Cebu_City;
+          		break;
               case "Consolacion":
                 city = Consolacion;
                 break;
@@ -150,11 +150,10 @@ jQuery(document).ready(function( $ ){
                 city = Talisay_City;
                 break;
               default:
-                city = Cebu_City;
+                city = "";
        }
 	   
        for (let i = 0; i < city.length; i++) {
-            //window.Option = function(text,  value,  defaultSelected,  selected) {};
             let selected =  (city.value[i] === brgyname) ?  true :  false;
             brgyId.add(new Option(city.text[i], city.value[i], brgyname, selected));
  
