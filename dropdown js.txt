@@ -124,6 +124,7 @@ jQuery(document).ready(function( $ ){
       }
 
       let city;
+
       switch (cityname) {
         	  case "Cebu City":
           		city= Cebu_City;

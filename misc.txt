@@ -1,0 +1,55 @@
+add_filter( 'woocommerce_default_address_fields' , 'custom_label' );
+add_filter( 'woocommerce_default_address_fields', 'reorder_field', 100, 1 );
+add_filter( 'woocommerce_default_address_fields', 'opt_default_field' );
+add_filter( 'woocommerce_checkout_fields' , 'unset_field' );
+
+//add_filter( 'woocommerce_billing_fields', 'opt_billing_field');
+
+// change label
+function custom_label( $fields ) {
+     $fields['city']['label'] = 'City';
+	 $fields['postcode']['label'] = 'Barangay/Area';
+     return $fields;
+}
+
+// remove field
+function unset_field($fields){
+	 unset($fields['billing']['billing_state']);
+	 unset($fields['billing']['billing_company']);
+     return $fields;
+}
+
+// reorder field
+function reorder_field($fields) {
+  $fields['country']['priority'] = 10;
+  $fields['first_name']['priority'] = 20;
+  $fields['last_name']['priority'] = 30;
+  $fields['address_1']['priority'] = 40;
+  $fields['address_2']['priority'] = 50;
+  $fields['city']['priority'] = 60;
+  $fields['postcode']['priority'] = 70;
+  $fields['state']['priority'] = 80;
+  return $fields;
+}
+
+// optional field
+function opt_default_field( $fields ) {
+    /*
+    $fields['first_name']['required']   = false;
+    $fields['last_name']['required']    = false;
+    $fields['company']['required']      = false;
+    $fields['country']['required']      = false;
+    $fields['address_1']['required']    = false;
+    $fields['address_2']['required']    = false;
+    $fields['city']['required']         = false;
+	$fields['postcode']['required']     = false;
+	*/
+    $fields['state']['required']        = false;
+    return $fields;
+}
+
+function opt_billing_field( $fields ) {
+    $fields['billing_phone']['required']    = false;
+    $fields['billing_email']['required']    = false;
+    return $fields;
+}

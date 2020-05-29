@@ -1,6 +1,5 @@
 add_filter( 'woocommerce_checkout_fields', 'city_dropdown');
 add_filter( 'woocommerce_checkout_fields', 'brgy_dropdown');
-add_filter( 'woocommerce_default_address_fields' , 'custom_checkout_label' );
 
 //dropdown field > billing_city
 function city_dropdown( $fields ) {
@@ -192,20 +191,5 @@ function brgy_dropdown($fields){
 	return $fields;
 }
 
-// change label
-function custom_checkout_label( $fields ) {
-     $fields['city']['label'] = 'City';
-	 $fields['postcode']['label'] = 'Barangay/Area';
-     return $fields;
-}
-
-// remove field
-add_filter( 'woocommerce_default_address_fields' , 'unset_field' );
-function unset_field($fields){
-	 unset($fields['state']);
-	// unset($fields['country']);
-	 unset($fields['company']);
-     return $fields;
-}
 
 
