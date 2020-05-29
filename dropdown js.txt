@@ -12,7 +12,7 @@ jQuery(document).ready(function( $ ){
    function setInit() {
 
       let cityId = document.getElementById("billing_city");
-      if(cityId == null){
+      if(cityId == null || typeof(cityId) === 'undefined'){
           return;
       }
      
@@ -152,12 +152,13 @@ jQuery(document).ready(function( $ ){
               default:
                 city = Cebu_City;
        }
-		
+	   
        for (let i = 0; i < city.length; i++) {
             //window.Option = function(text,  value,  defaultSelected,  selected) {};
-            brgyId.add(new Option(city.text[i], city.value[i], brgyname, city.value[i] == brgyname));
+            let selected =  (city.value[i] === brgyname) ?  true :  false;
+            brgyId.add(new Option(city.text[i], city.value[i], brgyname, selected));
+ 
        }
-       
   }
 
 });
